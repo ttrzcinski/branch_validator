@@ -10,10 +10,22 @@ def validate_branch_name(name) -> bool:
     # Check, if name has illegal chars
     check_invalid_chars(name)
 
-    # TODO COMPARE with known patterns
+    # Compare with known patterns
+    if check_known_patterns(name):
+        return True
 
     # By default, if invalid, then is wrong
     return False
+
+
+def check_known_patterns(name) -> bool:
+    patterns = ["main", "develop", "feature/", "fix/"]
+    if (name.startswith(p) for p in patterns):
+        if name.startswith("f") and name.endswith("/"):
+            print('Branch name lacks exact description.')
+            return False
+        return True
+    sys.exit("Space is an illegal character in branch name.")
 
 
 def check_invalid_chars(name):
@@ -30,8 +42,6 @@ def check_entered_param(name):
 
 
 if __name__ == '__main__':
-    # if sys.argv[1] and sys.argv[1] in []:
-    #    sys.exit("Param:")
     # Checks branch name
     result = validate_branch_name(sys.argv[1])
     if result:

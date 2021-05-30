@@ -1,7 +1,7 @@
 import sys
 
 
-def validate_branch_name(name):
+def validate_branch_name(name) -> bool:
     # Checks pattern of given branch name with known valid patterns.
     print(f'[DEBUG] Call to method validate_branch_name with name: {name}')
     # Check param name for falsy
@@ -11,7 +11,8 @@ def validate_branch_name(name):
 
     # TODO COMPARE with known patterns
 
-    # TODO Return default - false
+    # By default, if invalid, then is wrong
+    return False
 
 
 def check_entered_param(name):
@@ -21,5 +22,11 @@ def check_entered_param(name):
 
 
 if __name__ == '__main__':
+    # if sys.argv[1] and sys.argv[1] in []:
+    #    sys.exit("Param:")
     # Checks branch name
-    validate_branch_name(sys.argv[1])
+    result = validate_branch_name(sys.argv[1])
+    if result:
+        sys.exit(0)
+    else:
+        sys.exit(1)
